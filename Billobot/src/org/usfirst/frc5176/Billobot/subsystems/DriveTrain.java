@@ -32,8 +32,28 @@ public class DriveTrain extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    /*
+     *        Last edited Jan 28
+     *        Function finds average coordinates of joysticks
+     *        then sets motors to appropriate speeds 
+     *        
+     *        Does ANYONE know what the max x and y coordinates are for the joysticks?
+     *        I am assuming it is [-1,1] on both axes but if I am wrong the robot might
+     *        move really slowly.
+     *
+     *        Original function:
+     *        
+     *        public void tankDrive(Joystick stick1, Joystick stick2) {
+     *                robotDrive21.tankDrive(stick1, stick2);
+     *        }
+     *
+     *        Written by Ben James
+     */
     public void tankDrive(Joystick stick1, Joystick stick2) {
-        robotDrive21.tankDrive(stick1, stick2);
+        double x = (stick0.getX(null) + stick1.getX(null)) / 2.;
+        double y = (stick0.getY(null) + stick1.getY(null)) / 2.;
+        leftMotor.set((y + x) / 2.);
+        rightMotor.set((y - x) / 2.);
     }
     
     public void driveStraight(double speed) {
